@@ -12,7 +12,9 @@ The workspace contains two folders by default, where:
 
 Meanwhile, the compiled output files will be generated in the `bin` folder by default.
 
-Day 1 - Started fleshing out the general setup of the dashboards, got a the first iteration of the login and signup page. 
+## Day 1 
+
+## - Started fleshing out the general setup of the dashboards, got a the first iteration of the login and signup page. 
 
 
 <img width="460" alt="loginPage" src="https://github.com/JahvinCrabtree/GymSystem/assets/108539156/5d5c24f2-2127-4629-9eee-81d7886e5ed9">
