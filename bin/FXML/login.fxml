@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../Systems/EmployeeManagementSystem/EmployeeManagement/src/FXML/login.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="adminController">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FDB750;">
+         <children>
+            <AnchorPane id="left-form" layoutX="7.0" layoutY="7.0" prefHeight="400.0" prefWidth="300.0" stylesheets="@../../../Systems/EmployeeManagementSystem/EmployeeManagement/src/FXML/login.css">
+               <children>
+                  <ImageView fitHeight="170.0" fitWidth="200.0" layoutX="61.0">
+                     <image>
+                        <Image url="@../../resources/PngItem_1882462.png" />
+                     </image>
+                  </ImageView>
+                  <TextArea layoutY="170.0" prefHeight="225.0" prefWidth="322.0" text="✅ All classes included in membership, book online or on the app!&#10;&#10;✅ Enjoy over 100 exclusive offers from your favourite brands!&#10;&#10;✅ 1 x 30-min trainer session with a qualified Personal Trainer of your choice!&#10;&#10;✅ Easy online membership management and freeze options!&#10;&#10;✅ 7 Day cooling off period for all new members!&#10;">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </AnchorPane>
+            <AnchorPane id="right-form" layoutX="304.0" layoutY="7.0" prefHeight="400.0" prefWidth="300.0" stylesheets="@../../../Systems/EmployeeManagementSystem/EmployeeManagement/src/FXML/login.css">
+               <children>
+                  <Label layoutX="51.0" layoutY="41.0" text="Take Control Of Your Fitness.">
+                     <font>
+                        <Font name="Gloucester MT Extra Condensed" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="usernameField" layoutX="40.0" layoutY="78.0" prefHeight="30.0" prefWidth="220.0" promptText="Username" style="-fx-background-color: #FFC55C; -fx-border-color: #D18700;" />
+                  <PasswordField fx:id="passwordField" layoutX="40.0" layoutY="125.0" prefHeight="30.0" prefWidth="220.0" promptText="Password" style="-fx-background-color: #FFC55C; -fx-border-color: #D18700;" />
+                  <Button fx:id="closeBtn" layoutX="226.0" layoutY="1.0" mnemonicParsing="false" prefHeight="14.0" prefWidth="68.0" style="-fx-background-color: #FFC55C; -fx-border-color: #D18700;" text="X">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="201.0" layoutY="379.0" prefHeight="14.0" prefWidth="95.0" text="by Jahvin Crabtree">
+                     <font>
+                        <Font name="Arial Italic" size="10.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="loginBtn" layoutX="84.0" layoutY="186.0" mnemonicParsing="false" onAction="#loginAdmin" prefHeight="25.0" prefWidth="131.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Login">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="loginBtn1" layoutX="84.0" layoutY="222.0" mnemonicParsing="false" onAction="#loginAdmin" prefHeight="25.0" prefWidth="131.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Sign Up">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="51.0" layoutY="250.0" prefHeight="30.0" prefWidth="231.0" text="By clicking this you will be taken to another page.">
+                     <font>
+                        <Font name="Arial Bold" size="9.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
