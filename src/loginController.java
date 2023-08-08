@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,7 +44,7 @@ public class loginController {
 
     @FXML
     void login(ActionEvent event) {
-        String sql = "SELECT * FROM admin_table WHERE username = ? and password = ?";
+        String sql = "SELECT * FROM admin_table WHERE adminUser = ? and adminPassword = ?";
         connect = dbConnection.getConnection();
 
         try{
@@ -104,6 +105,12 @@ public class loginController {
     @FXML
     void signUp(ActionEvent event) {
 
+    }
+    
+    @FXML
+    void closeWindow(ActionEvent event) {
+        Stage stage = (Stage) closeBtn.getScene().getWindow();
+        stage.close();
     }
 
 }
