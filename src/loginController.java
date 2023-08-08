@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -30,6 +31,11 @@ public class loginController {
 
     @FXML
     private TextField usernameField;
+
+    // X AND Y are used to track the original position of the mouse when dragging panes etc.
+
+    private double x = 0;
+    private double y = 0;
 
     private Connection connect;
     private ResultSet result;
@@ -55,6 +61,7 @@ public class loginController {
                 alert.setContentText("Please fill all blank fields.");
                 alert.showAndWait();
             }
+            
             else if(result.next()) {
                 getData.username = usernameField.getText();
 
@@ -64,13 +71,25 @@ public class loginController {
                 alert.setContentText("Successfull Login.");
 
                 loginBtn.getScene().getWindow().hide();
-                Parent root = FXMLLoader.load(getClass().getResource("FXML/dashboard.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("FXML/memberDashboard.fxml"));
                 Stage stage = new Stage();
                 Scene scene = new Scene(root);
 
+                root.setOnMousePressed((MouseEvent mouseEvent) ->{
+                    x = mouseEvent.getSceneX();
+                    y = mouseEvent.getSceneY();
+                });
+
+                root.setOnMouseDragged((MouseEvent mouseEvent) -> {
+                    stage.setX(mouseEvent.getSceneX() - x);
+                    stage.setX(mouseEvent.getSceneY() - y);
+                });
+
                 stage.setScene(scene);
                 stage.show();
-            } else {
+            } 
+            
+            else {
                 alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error Message");
                 alert.setHeaderText(null);
