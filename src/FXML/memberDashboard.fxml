@@ -25,12 +25,12 @@
                         <Image url="@../../resources/PngItem_1882462.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="1071.0" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="97.0" style="-fx-background-color: #FFC55C #FFC55C #FFC55C; -fx-border-color: #D18700;" text="Minimise">
+                  <Button fx:id="minimiseBtn" layoutX="1071.0" layoutY="14.0" mnemonicParsing="false" onAction="#minimiseMouseEvent" prefHeight="36.0" prefWidth="97.0" style="-fx-background-color: #FFC55C #FFC55C #FFC55C; -fx-border-color: #D18700;" text="Minimise">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button layoutX="1179.0" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="97.0" style="-fx-background-color: #FFC55C; -fx-border-color: #D18700;" text="Close">
+                  <Button fx:id="closeBtn" layoutX="1179.0" layoutY="14.0" mnemonicParsing="false" onAction="#closeMouseEvent" prefHeight="36.0" prefWidth="97.0" style="-fx-background-color: #FFC55C; -fx-border-color: #D18700;" text="Close">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -51,12 +51,12 @@
                         <Font name="Gill Sans MT Bold" size="28.0" />
                      </font>
                   </Label>
-                  <Button layoutX="59.0" layoutY="202.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Personal Page!">
+                  <Button fx:id="homeBtn" layoutX="59.0" layoutY="202.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Home!">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button layoutX="59.0" layoutY="246.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Classes!">
+                  <Button fx:id="classedBtn" layoutX="59.0" layoutY="246.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Classes!">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -66,7 +66,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button layoutX="19.0" layoutY="579.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Logout">
+                  <Button fx:id="logoutBtn" layoutX="19.0" layoutY="579.0" mnemonicParsing="false" onAction="#logoutMouseEvent" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Logout">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -110,21 +110,32 @@
                         <Font name="Gill Sans MT" size="20.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="129.0" layoutY="311.0" prefHeight="31.0" prefWidth="182.0" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;" />
-                  <TextField layoutX="129.0" layoutY="359.0" prefHeight="31.0" prefWidth="182.0" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;" />
-                  <TextField layoutX="129.0" layoutY="405.0" prefHeight="31.0" prefWidth="182.0" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;" />
-                  <TextField layoutX="129.0" layoutY="451.0" prefHeight="31.0" prefWidth="182.0" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;" />
-                  <Button layoutX="348.0" layoutY="342.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="124.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Add">
+                  <TextField fx:id="squatTextField" layoutX="129.0" layoutY="311.0" prefHeight="31.0" prefWidth="182.0" promptText="Insert Number" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;" />
+                  <TextField fx:id="benchTextField" layoutX="129.0" layoutY="359.0" prefHeight="31.0" prefWidth="182.0" promptText="Insert Number" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;" />
+                  <TextField fx:id="deadliftTextField" layoutX="129.0" layoutY="405.0" prefHeight="31.0" prefWidth="182.0" promptText="InsertNumber" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;" />
+                  <TextField fx:id="weightTextField" layoutX="129.0" layoutY="451.0" prefHeight="31.0" prefWidth="182.0" promptText="InsertNumber" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;" />
+                  <Button fx:id="addBtn" layoutX="348.0" layoutY="342.0" mnemonicParsing="false" onAction="#addMouseEvent" prefHeight="66.0" prefWidth="124.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Add">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button layoutX="512.0" layoutY="342.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="124.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Update">
+                  <Button fx:id="updateBtn" layoutX="512.0" layoutY="342.0" mnemonicParsing="false" onAction="#updateMouseEvent" prefHeight="66.0" prefWidth="124.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Update">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <ImageView fitHeight="314.0" fitWidth="343.0" layoutX="666.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="361.0" fitWidth="266.0" layoutX="714.0" layoutY="271.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../resources/imgbin_2016-mr-olympia-2017-mr-olympia-arnold-sports-festival-dietary-supplement-bodybuilding-png.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="quoteText" layoutX="127.0" layoutY="525.0" prefHeight="93.0" prefWidth="589.0" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;" />
+                  <Label layoutX="359.0" layoutY="492.0" prefHeight="24.0" prefWidth="102.0" text="Inspiration.">
+                     <font>
+                        <Font name="Gill Sans MT" size="20.0" />
+                     </font>
+                  </Label>
+                  <Line endX="66.333251953125" layoutX="420.0" layoutY="516.0" startX="-100.0" strokeWidth="2.0" />
                </children>
             </AnchorPane>
          </center>
