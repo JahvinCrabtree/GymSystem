@@ -27,3 +27,12 @@ Meanwhile, the compiled output files will be generated in the `bin` folder by de
 ## Login page functional, database connection functional, dashboard 50% fleshed out register page tonight.
 
 The register page will be implementing data into the database to allow the user to essentially have an account and then login to enter the dashboard.
+
+## Register page
+
+Register page setup, can now insert data into the database so that user is able to then log into application and access the dashboard - learned a new way to do this instead of using string concatenation which is prone to SQL injection attacks but instead using a PreparedStatement to securely insert the user data into the database instead. This can be seen on the registerControlled under the "registerUser()" function.
+
+<img width="450" alt="registerTest1" src="https://github.com/JahvinCrabtree/GymSystem/assets/108539156/c5f08adf-6695-4009-981d-2ea6cb331f51">
+
+Also implemented some quality of life alerts if the passwords dont match when registering - going to try and implement something along the lines of if the details are already in the database also spit out an error so there can't be 2 people with the same usernames. 
+
