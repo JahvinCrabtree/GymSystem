@@ -20,3 +20,10 @@ Meanwhile, the compiled output files will be generated in the `bin` folder by de
 <img width="460" alt="loginPage" src="https://github.com/JahvinCrabtree/GymSystem/assets/108539156/5d5c24f2-2127-4629-9eee-81d7886e5ed9">
 
 <img width="461" alt="signupPage" src="https://github.com/JahvinCrabtree/GymSystem/assets/108539156/e667304d-8ab4-4a49-abfb-c1696355caf9">
+
+
+## Day 3
+
+## Login page functional, database connection functional, dashboard 50% fleshed out register page tonight.
+
+The register page will be implementing data into the database to allow the user to essentially have an account and then login to enter the dashboard.
