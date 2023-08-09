@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class loginController {
 
@@ -33,7 +34,8 @@ public class loginController {
     @FXML
     private TextField usernameField;
 
-    // X AND Y are used to track the original position of the mouse when dragging panes etc.
+    // X AND Y are used to track the original position of the mouse when dragging
+    // panes etc.
 
     private double x = 0;
     private double y = 0;
@@ -47,7 +49,7 @@ public class loginController {
         String sql = "SELECT * FROM admin_table WHERE adminUser = ? and adminPassword = ?";
         connect = dbConnection.getConnection();
 
-        try{
+        try {
             prepare = connect.prepareStatement(sql);
             prepare.setString(1, usernameField.getText());
             prepare.setString(2, passwordField.getText());
@@ -62,8 +64,8 @@ public class loginController {
                 alert.setContentText("Please fill all blank fields.");
                 alert.showAndWait();
             }
-            
-            else if(result.next()) {
+
+            else if (result.next()) {
                 getData.username = usernameField.getText();
 
                 alert = new Alert(AlertType.INFORMATION);
@@ -76,7 +78,7 @@ public class loginController {
                 Stage stage = new Stage();
                 Scene scene = new Scene(root);
 
-                root.setOnMousePressed((MouseEvent mouseEvent) ->{
+                root.setOnMousePressed((MouseEvent mouseEvent) -> {
                     x = mouseEvent.getSceneX();
                     y = mouseEvent.getSceneY();
                 });
@@ -88,8 +90,8 @@ public class loginController {
 
                 stage.setScene(scene);
                 stage.show();
-            } 
-            
+            }
+
             else {
                 alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error Message");
@@ -103,10 +105,32 @@ public class loginController {
     }
 
     @FXML
-    void signUp(ActionEvent event) {
+    void signUpPageForm(ActionEvent event) {
+        try {
+            loginBtn.getScene().getWindow().hide();
+            Parent root = FXMLLoader.load(getClass().getResource("FXML/register.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
 
+            root.setOnMousePressed((MouseEvent mouseEvent) -> {
+                x = mouseEvent.getSceneX();
+                y = mouseEvent.getSceneY();
+            });
+
+            root.setOnMouseDragged((MouseEvent mouseEvent) -> {
+                stage.setX(mouseEvent.getSceneX() - x);
+                stage.setX(mouseEvent.getSceneY() - y);
+            });
+
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
     }
-    
+
     @FXML
     void closeWindow(ActionEvent event) {
         Stage stage = (Stage) closeBtn.getScene().getWindow();
