@@ -36,3 +36,5 @@ Register page setup, can now insert data into the database so that user is able 
 
 Also implemented some quality of life alerts if the passwords dont match when registering - going to try and implement something along the lines of if the details are already in the database also spit out an error so there can't be 2 people with the same usernames. 
 
+Implemented some new features to the register page, learned about implementing delays to the alerts and creating automatic redirects. So when the user registers to the application, it shows an alert that tells them it was successful and then redirects the user back to the login page to then sign in.
+
