@@ -3,8 +3,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -14,6 +19,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
+
 
 public class registerController {
 
@@ -36,7 +46,14 @@ public class registerController {
     private TextField memberNumberTextField;
 
     @FXML
-    private ComboBox<?> membershipComboBox;
+    private ComboBox<String> membershipComboBox;
+
+    public void initialize() {
+        // Populating the ComboBox with items
+        ObservableList<String> options = 
+            FXCollections.observableArrayList("Gold", "Silver", "Bronze");
+        membershipComboBox.setItems(options);
+    }
 
     @FXML
     private TextField phoneTextField;
@@ -56,6 +73,9 @@ public class registerController {
     private Connection connect;
     private ResultSet result;
     private PreparedStatement prepare;
+
+    private double x;
+    private double y;
 
     private boolean isValidEmail(String email) {
         // CodeWars challenges to the rescue.
@@ -88,9 +108,56 @@ public class registerController {
         alert.showAndWait();
     }
 
+    private void showTimedAlertAndRedirect(Alert.AlertType type, String title, String content, int seconds) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.show();
+    
+        // Pause for the alert display duration
+        PauseTransition delayForAlert = new PauseTransition(Duration.seconds(seconds));
+        delayForAlert.setOnFinished(event -> {
+            alert.close();
+    
+            // Optional: Another short delay before redirecting to the login page
+            PauseTransition delayForRedirect = new PauseTransition(Duration.seconds(1));
+            delayForRedirect.setOnFinished(e -> loginPageForm());
+            delayForRedirect.play();
+        });
+        delayForAlert.play();
+    }
+
+    private void loginPageForm() {
+        try {
+            registerButton.getScene().getWindow().hide();
+            Parent root = FXMLLoader.load(getClass().getResource("FXML/login.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+
+            root.setOnMousePressed((MouseEvent mouseEvent) -> {
+                x = mouseEvent.getSceneX();
+                y = mouseEvent.getSceneY();
+            });
+
+            root.setOnMouseDragged((MouseEvent mouseEvent) -> {
+                stage.setX(mouseEvent.getSceneX() - x);
+                stage.setX(mouseEvent.getSceneY() - y);
+            });
+
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
+
     @FXML
     void closeButtonOnAction(ActionEvent event) {
-
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -174,7 +241,7 @@ private void registerUser() {
         preparedStatement.executeUpdate();  
 
         // Alert to confirm it's added.
-        showAlert(Alert.AlertType.INFORMATION, "Information Message!", "Details added successfully!");
+        showTimedAlertAndRedirect(Alert.AlertType.INFORMATION, "Information Message!", "Details added successfully!", 3);
     } catch (SQLException e) {
         e.printStackTrace();
     }
