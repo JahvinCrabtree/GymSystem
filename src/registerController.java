@@ -33,10 +33,13 @@ public class registerController {
     private ImageView logoImageView;
 
     @FXML
+    private TextField memberNumberTextField;
+
+    @FXML
     private ComboBox<?> membershipComboBox;
 
     @FXML
-    private PasswordField phoneTextField;
+    private TextField phoneTextField;
 
     @FXML
     private Button registerButton;
@@ -53,6 +56,37 @@ public class registerController {
     private Connection connect;
     private ResultSet result;
     private PreparedStatement prepare;
+
+    private boolean isValidEmail(String email) {
+        // CodeWars challenges to the rescue.
+        
+        String regex = "^[\\w&.-]+@([\\w-]+\\.)+(com|co\\.uk|gmail\\.com)$";
+        return email.matches(regex);
+    }
+
+    private boolean isStrongPassword(String password) {
+        // Example: At least one uppercase, one lowercase, one digit, one special char, and 8-20 characters long
+        String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]{8,20}$";
+        return password.matches(regex);
+    }
+
+    private boolean isValidPhoneNumber(String phone) {
+        // Example: 10-15 digits
+        String regex = "^\\d{10,15}$";
+        return phone.matches(regex);
+    }
+
+    // Alert method to reduce redundancy later down the line. 
+    
+    public Alert alert = new Alert(Alert.AlertType.NONE);
+
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 
     @FXML
     void closeButtonOnAction(ActionEvent event) {
@@ -84,9 +118,46 @@ private void registerUser() {
     String email = emailTextField.getText();
     String phone = phoneTextField.getText();
     String membership = (String) membershipComboBox.getSelectionModel().getSelectedItem();
+    String memberNum = memberNumberTextField.getText();
+
+    // Validation checks.
+
+    if (!isValidEmail(email)) {
+        showAlert(Alert.AlertType.ERROR, "Error Message!", "Invalid email format!");
+        return;
+    }
+
+    if (!isStrongPassword(password)) {
+        showAlert(Alert.AlertType.ERROR, "Error Message!", "Invalid password format!");
+        return;
+    }
+
+    if (!isValidPhoneNumber(phone)) {
+        showAlert(Alert.AlertType.ERROR, "Error Message!", "Invalid phone format!");
+        return;
+    }
+
+    // Check if username already exists in database - preventing duplicates.
+
+    String checkUser = "SELECT * FROM member_table WHERE username = ? OR email = ?";
+    try {
+        PreparedStatement checkStatement = connect.prepareStatement(checkUser);
+        checkStatement.setString(1, username);
+        checkStatement.setString(2, email);
+
+        ResultSet resultSet = checkStatement.executeQuery();
+        if (resultSet.next()) {
+            // User with the provided username or email already exists
+            // Notify the user and return from the method
+            showAlert(Alert.AlertType.ERROR, "Error Message!", "Username already exists!");
+            return; // Optionally return if you don't want to continue processing.
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
 
     // preparing SQL using PreparedStatement
-    String insertToRegister = "INSERT INTO member_table(username, password, email, phone, membership) VALUES (?, ?, ?, ?, ?)";
+    String insertToRegister = "INSERT INTO member_table(username, password, email, phone, membership, memberNum) VALUES (?, ?, ?, ?, ?, ?)";
 
     try {
         PreparedStatement preparedStatement = connect.prepareStatement(insertToRegister);
@@ -97,9 +168,13 @@ private void registerUser() {
         preparedStatement.setString(3, email);
         preparedStatement.setString(4, phone);
         preparedStatement.setString(5, membership);
+        preparedStatement.setString(6, memberNum);
 
         // executing the statement
-        preparedStatement.executeUpdate();
+        preparedStatement.executeUpdate();  
+
+        // Alert to confirm it's added.
+        showAlert(Alert.AlertType.INFORMATION, "Information Message!", "Details added successfully!");
     } catch (SQLException e) {
         e.printStackTrace();
     }
