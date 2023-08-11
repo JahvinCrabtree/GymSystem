@@ -188,7 +188,6 @@ private void registerUser() {
     String memberNum = memberNumberTextField.getText();
 
     // Validation checks.
-
     if (!isValidEmail(email)) {
         showAlert(Alert.AlertType.ERROR, "Error Message!", "Invalid email format!");
         return;
@@ -205,7 +204,6 @@ private void registerUser() {
     }
 
     // Check if username already exists in database - preventing duplicates.
-
     String checkUser = "SELECT * FROM member_table WHERE username = ? OR email = ?";
     try {
         PreparedStatement checkStatement = connect.prepareStatement(checkUser);
