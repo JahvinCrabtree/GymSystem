@@ -1,6 +1,7 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class memberDashboardController {
@@ -18,7 +19,13 @@ public class memberDashboardController {
     private Button closeBtn;
 
     @FXML
+    private Button compareBtn;
+
+    @FXML
     private TextField deadliftTextField;
+
+    @FXML
+    private Label greetingLabel;
 
     @FXML
     private Button homeBtn;
@@ -27,13 +34,22 @@ public class memberDashboardController {
     private Button logoutBtn;
 
     @FXML
+    private Button mapBtn;
+
+    @FXML
     private Button minimiseBtn;
 
     @FXML
     private TextField quoteText;
 
     @FXML
+    private Button searchBtn;
+
+    @FXML
     private TextField squatTextField;
+
+    @FXML
+    private Button trainingBtn;
 
     @FXML
     private Button updateBtn;
@@ -47,7 +63,27 @@ public class memberDashboardController {
     }
 
     @FXML
+    void classesForm(ActionEvent event) {
+
+    }
+
+    @FXML
     void closeMouseEvent(ActionEvent event) {
+
+    }
+
+    @FXML
+    void compareForm(ActionEvent event) {
+
+    }
+
+    @FXML
+    void homeForm(ActionEvent event) {
+
+    }
+
+    @FXML
+    void letsTrainForm(ActionEvent event) {
 
     }
 
@@ -58,6 +94,11 @@ public class memberDashboardController {
 
     @FXML
     void minimiseMouseEvent(ActionEvent event) {
+
+    }
+
+    @FXML
+    void searchMouseEvent(ActionEvent event) {
 
     }
 
