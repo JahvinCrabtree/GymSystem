@@ -57,17 +57,17 @@
                         <Font name="Gill Sans MT Bold" size="28.0" />
                      </font>
                   </Label>
-                  <Button fx:id="homeBtn" layoutX="59.0" layoutY="202.0" mnemonicParsing="false" onAction="#homeForm" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Home!">
+                  <Button fx:id="homeBtn" layoutX="59.0" layoutY="202.0" mnemonicParsing="false" onAction="#swapForm" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Home!">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="classedBtn" layoutX="59.0" layoutY="246.0" mnemonicParsing="false" onAction="#classesForm" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Classes!">
+                  <Button fx:id="classedBtn" layoutX="59.0" layoutY="246.0" mnemonicParsing="false" onAction="#swapForm" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Classes!">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="trainingBtn" layoutX="59.0" layoutY="291.0" mnemonicParsing="false" onAction="#letsTrainForm" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Lets Train!">
+                  <Button fx:id="trainingBtn" layoutX="59.0" layoutY="291.0" mnemonicParsing="false" onAction="#swapForm" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Lets Train!">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -78,12 +78,12 @@
                      </font>
                   </Button>
                   <Line endX="100.0" layoutX="126.0" layoutY="101.0" startX="-100.0" strokeWidth="2.0" />
-                  <Button fx:id="compareBtn" layoutX="59.0" layoutY="336.0" mnemonicParsing="false" onAction="#compareForm" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Compare!">
+                  <Button fx:id="compareBtn" layoutX="59.0" layoutY="336.0" mnemonicParsing="false" onAction="#swapForm" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Compare!">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="mapBtn" layoutX="59.0" layoutY="382.0" mnemonicParsing="false" onAction="#localGymForm" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Local Gyms!">
+                  <Button fx:id="mapBtn" layoutX="59.0" layoutY="382.0" mnemonicParsing="false" onAction="#swapForm" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Local Gyms!">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -94,7 +94,7 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" visible="false">
+                  <AnchorPane fx:id="homeForm" prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <TableView layoutX="14.0" layoutY="14.0" prefHeight="255.0" prefWidth="996.0" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;">
                            <columns>
@@ -156,7 +156,7 @@
                         <Line endX="66.333251953125" layoutX="420.0" layoutY="516.0" startX="-100.0" strokeWidth="2.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="spartanChallengeBtn" layoutX="-7.0" layoutY="-3.0" prefHeight="633.0" prefWidth="1023.0" visible="false">
+                  <AnchorPane fx:id="classForm" layoutX="-7.0" layoutY="-3.0" prefHeight="633.0" prefWidth="1023.0" visible="false">
                      <children>
                         <Circle fill="#ffd498" layoutX="863.0" layoutY="176.0" radius="106.0" stroke="BLACK" strokeType="INSIDE" />
                         <Label layoutX="789.0" layoutY="25.0" text="People in the gym">
@@ -256,7 +256,7 @@
                         <Button fx:id="updateGymNumberBtn" layoutX="811.0" layoutY="305.0" mnemonicParsing="false" onAction="#updateGymNumber" prefHeight="25.0" prefWidth="91.0" style="-fx-background-color: FFDDCC; -fx-border-color: FFEECC;" text="Update!" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane prefHeight="633.0" prefWidth="1023.0">
+                  <AnchorPane fx:id="trainForm" prefHeight="633.0" prefWidth="1023.0" visible="false">
                      <children>
                         <Label layoutX="449.0" layoutY="30.0" text="Training Hub!">
                            <font>
@@ -285,7 +285,7 @@
                         <ComboBox fx:id="legComboBox" layoutX="655.0" layoutY="159.0" prefWidth="150.0" promptText="Legs Exercises!" style="-fx-background-color: FFDDCC; -fx-border-color: FFEECC;" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane prefHeight="633.0" prefWidth="1023.0" visible="false">
+                  <AnchorPane fx:id="statsForm" prefHeight="633.0" prefWidth="1023.0" visible="false">
                      <children>
                         <Label layoutX="330.0" layoutY="43.0" text="See how you compare to other members!">
                            <font>
@@ -308,7 +308,7 @@
                         </Button>
                      </children>
                   </AnchorPane>
-                  <AnchorPane prefHeight="633.0" prefWidth="1023.0" style="-fx-background-image: GymSystem\resourcestestBGImage.jpg;" visible="false">
+                  <AnchorPane fx:id="mapForm" prefHeight="633.0" prefWidth="1023.0" style="-fx-background-image: GymSystem\resourcestestBGImage.jpg;" visible="false">
                      <children>
                         <WebView layoutX="55.0" layoutY="176.0" prefHeight="402.0" prefWidth="905.0" />
                         <Label layoutX="410.0" layoutY="53.0" text="Gyms in the local area!">

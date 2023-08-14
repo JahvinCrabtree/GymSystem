@@ -7,6 +7,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 
 public class memberDashboardController {
@@ -143,6 +144,21 @@ public class memberDashboardController {
     private Button updateGymNumberBtn;
 
     @FXML
+    private AnchorPane homeForm;
+
+    @FXML
+    private AnchorPane statsForm;
+
+    @FXML
+    private AnchorPane classForm;
+
+    @FXML
+    private AnchorPane mapForm;
+
+    @FXML
+    private AnchorPane trainForm;
+
+    @FXML
     private TextField weightTextField;
 
     @FXML
@@ -165,18 +181,9 @@ public class memberDashboardController {
 
     }
 
-    @FXML
-    void classesForm(ActionEvent event) {
-
-    }
 
     @FXML
     void closeMouseEvent(ActionEvent event) {
-
-    }
-
-    @FXML
-    void compareForm(ActionEvent event) {
 
     }
 
@@ -214,24 +221,44 @@ public class memberDashboardController {
     void getSweatClassInfo(ActionEvent event) {
 
     }
-
+    
     @FXML
-    void homeForm(ActionEvent event) {
-
+    void swapForm(ActionEvent event) {
+        if(event.getSource() == homeBtn) {
+            homeForm.setVisible(true);
+            statsForm.setVisible(false);
+            trainForm.setVisible(false);
+            classForm.setVisible(false);
+            mapForm.setVisible(false);
+        } else if (event.getSource() == compareBtn) {
+            homeForm.setVisible(false);
+            statsForm.setVisible(true);
+            trainForm.setVisible(false);
+            classForm.setVisible(false);
+            mapForm.setVisible(false);
+        } else if (event.getSource() == trainingBtn) {
+            homeForm.setVisible(false);
+            statsForm.setVisible(false);
+            trainForm.setVisible(true);
+            classForm.setVisible(false);
+            mapForm.setVisible(false);
+        } else if (event.getSource() == classedBtn) {
+            homeForm.setVisible(false);
+            statsForm.setVisible(false);
+            trainForm.setVisible(false);
+            classForm.setVisible(true);
+            mapForm.setVisible(false);
+        } else if (event.getSource() == mapBtn) {
+            homeForm.setVisible(false);
+            statsForm.setVisible(false);
+            trainForm.setVisible(false);
+            classForm.setVisible(false);
+            mapForm.setVisible(true);
+        }
     }
-
+    
     @FXML
     void legsExerciseSelect(ActionEvent event) {
-
-    }
-
-    @FXML
-    void letsTrainForm(ActionEvent event) {
-
-    }
-
-    @FXML
-    void localGymForm(ActionEvent event) {
 
     }
 
@@ -278,6 +305,10 @@ public class memberDashboardController {
     @FXML
     void updateMouseEvent(ActionEvent event) {
 
+    }
+
+    public void initialize() {
+        
     }
 
 }
