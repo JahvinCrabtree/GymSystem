@@ -19,10 +19,16 @@ public class memberDashboardController {
     private ComboBox<?> backComboBox;
 
     @FXML
-    private TextField benchTextField;
+    private ComboBox<?> chestComboBox;
 
     @FXML
-    private ComboBox<?> chestComboBox;
+    private ComboBox<?> legComboBox;
+
+    @FXML
+    private ComboBox<?> shoulderComboBox;
+
+    @FXML
+    private TextField benchTextField;
 
     @FXML
     private Button classedBtn;
@@ -61,9 +67,6 @@ public class memberDashboardController {
     private Button homeBtn;
 
     @FXML
-    private ComboBox<?> legComboBox;
-
-    @FXML
     private Button logoutBtn;
 
     @FXML
@@ -83,9 +86,6 @@ public class memberDashboardController {
 
     @FXML
     private Button searchBtn;
-
-    @FXML
-    private ComboBox<?> shoulderComboBox;
 
     @FXML
     private Button spartanChallengeBtn;
