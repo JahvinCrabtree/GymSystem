@@ -102,36 +102,35 @@
                               <TableColumn prefWidth="75.0" style="-fx-background-color: #FD7F20;" text="Bench" />
                               <TableColumn prefWidth="75.0" style="-fx-background-color: #FD7F20;" text="Deadlift" />
                               <TableColumn prefWidth="75.0" style="-fx-background-color: #FD7F20;" text="Total" />
-                              <TableColumn prefWidth="75.0" style="-fx-background-color: #FD7F20;" text="Weight" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <Label layoutX="67.0" layoutY="315.0" prefHeight="24.0" prefWidth="61.0" text="Squat :">
+                        <Label layoutX="14.0" layoutY="283.0" prefHeight="24.0" prefWidth="137.0" text="Exercise Name :">
                            <font>
                               <Font name="Gill Sans MT" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="62.0" layoutY="363.0" prefHeight="24.0" prefWidth="66.0" text="Bench :">
+                        <Label layoutX="15.0" layoutY="331.0" prefHeight="24.0" prefWidth="151.0" text="Exercise Weight :">
                            <font>
                               <Font name="Gill Sans MT" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="48.0" layoutY="409.0" prefHeight="24.0" prefWidth="81.0" text="Deadlift :">
+                        <Label layoutX="15.0" layoutY="377.0" prefHeight="24.0" prefWidth="111.0" text="Repetitions :">
                            <font>
                               <Font name="Gill Sans MT" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="51.0" layoutY="455.0" prefHeight="24.0" prefWidth="76.0" text="Weight :">
+                        <Label layoutX="15.0" layoutY="423.0" prefHeight="24.0" prefWidth="57.0" text="Date :">
                            <font>
                               <Font name="Gill Sans MT" size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="squatTextField" layoutX="129.0" layoutY="311.0" prefHeight="31.0" prefWidth="182.0" promptText="Insert Number" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;" />
-                        <TextField fx:id="benchTextField" layoutX="129.0" layoutY="359.0" prefHeight="31.0" prefWidth="182.0" promptText="Insert Number" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;" />
-                        <TextField fx:id="deadliftTextField" layoutX="129.0" layoutY="405.0" prefHeight="31.0" prefWidth="182.0" promptText="InsertNumber" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;" />
-                        <TextField fx:id="weightTextField" layoutX="129.0" layoutY="451.0" prefHeight="31.0" prefWidth="182.0" promptText="InsertNumber" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;" />
+                        <TextField fx:id="exerciseNameTextField" layoutX="157.0" layoutY="279.0" prefHeight="31.0" prefWidth="155.0" promptText="Insert Number" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;" />
+                        <TextField fx:id="exerciseWeightTextField" layoutX="166.0" layoutY="327.0" prefHeight="31.0" prefWidth="146.0" promptText="Insert Number" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;" />
+                        <TextField fx:id="repetitonsTextField" layoutX="126.0" layoutY="373.0" prefHeight="31.0" prefWidth="186.0" promptText="Insert Number" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;" />
+                        <TextField fx:id="dateTextField" layoutX="74.0" layoutY="419.0" prefHeight="31.0" prefWidth="238.0" promptText="YYYY-MM-DD eg &quot;2023-08-15&quot;" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;" />
                         <Button fx:id="addBtn" layoutX="348.0" layoutY="342.0" mnemonicParsing="false" onAction="#addMouseEvent" prefHeight="66.0" prefWidth="124.0" style="-fx-background-color: #FD7F20; -fx-border-color: #FC2E20;" text="Add">
                            <font>
                               <Font name="System Bold" size="12.0" />
@@ -154,6 +153,12 @@
                            </font>
                         </Label>
                         <Line endX="66.333251953125" layoutX="420.0" layoutY="516.0" startX="-100.0" strokeWidth="2.0" />
+                        <Label layoutX="15.0" layoutY="464.0" prefHeight="24.0" prefWidth="149.0" text="Member Weight :">
+                           <font>
+                              <Font name="Gill Sans MT" size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="memberWeightTextField" layoutX="164.0" layoutY="460.0" prefHeight="31.0" prefWidth="148.0" promptText="Insert Number" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="classForm" layoutX="-7.0" layoutY="-3.0" prefHeight="633.0" prefWidth="1023.0" visible="false">

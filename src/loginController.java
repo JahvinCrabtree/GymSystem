@@ -17,34 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-
-/*  
-    public void comboBoxData() {
-        //Populating all the combo boxes.
-
-        ObservableList<String> armOptions = 
-            FXCollections.observableArrayList("Bicep Curl", "Hammer Curl", "Reverse Curl", "EZ Bar Curl", "Spider Curls",
-            "Tricep Pushdown", "Skull Crushers", "Rope Pushdown", "Close Grip Press");
-        armComboBox.setItems(armOptions);
-
-        ObservableList<String> backOptions = 
-            FXCollections.observableArrayList("Bent-over Barbell Row", "Pull Ups", "Seated Cable Row", "Seal Row", "Lat Pulldown");
-        armComboBox.setItems(backOptions);
-
-        ObservableList<String> chestOptions = 
-            FXCollections.observableArrayList("Barbell Bench Press", "Dumbbell Bench Press", "Cable Flies", "Push Ups", "Incline Bench Press",
-            "Decline Bench Press", "Dips", "Dumbbell Pullover");
-        armComboBox.setItems(chestOptions);
-
-        ObservableList<String> legOptions = 
-            FXCollections.observableArrayList("Barbell Squat", "Hack Squat", "Leg Extension", "Hmastring Curl", "Sissy Squat", "Leg Press", "Lunges");
-        armComboBox.setItems(legOptions);
-
-        ObservableList<String> shoulderOptions = 
-            FXCollections.observableArrayList("Military Press", "Dumbbell Shoulder Press", "Lateral Raises", "Reverse Flies", "Rope Face Pulls", "Front Raises");
-        armComboBox.setItems(shoulderOptions);
-    }
-     */
 public class loginController {
 
     @FXML
