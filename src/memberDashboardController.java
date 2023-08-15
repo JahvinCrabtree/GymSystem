@@ -1,7 +1,18 @@
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ResourceBundle;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -9,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 
 public class memberDashboardController {
 
@@ -57,7 +69,10 @@ public class memberDashboardController {
     }
 
     @FXML
-    private TextField benchTextField;
+    private TextField exerciseWeightTextField;
+
+    @FXML
+    private TextField dateTextField;
 
     @FXML
     private Button classedBtn;
@@ -69,7 +84,7 @@ public class memberDashboardController {
     private Button compareBtn;
 
     @FXML
-    private TextField deadliftTextField;
+    private TextField repetitonsTextField;
 
     @FXML
     private Label exerciseInfoLabel;
@@ -126,7 +141,7 @@ public class memberDashboardController {
     private Button spinClassGetInvolved;
 
     @FXML
-    private TextField squatTextField;
+    private TextField exerciseTextField;
 
     @FXML
     private Button sweatGetInvolvedBtn;
@@ -159,11 +174,133 @@ public class memberDashboardController {
     private AnchorPane trainForm;
 
     @FXML
-    private TextField weightTextField;
+    private TextField memberWeightTextField;
+
+    private Connection connect;
+    PreparedStatement preparedStatement;
+
+    private double x;
+    private double y;
+
+    // Alert method to reduce redundancy later down the line. 
+    
+    public Alert alert = new Alert(Alert.AlertType.NONE);
+
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 
     @FXML
     void addMouseEvent(ActionEvent event) {
 
+    }
+
+    // Validation Checks
+    private boolean isEmpty(TextField textField) {
+        String input = textField.getText();
+        return (input == null || input.trim().isEmpty());
+    }
+
+    private boolean isInteger(TextField textField) {
+        try {
+            Integer.parseInt(textField.getText());
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private boolean isDouble(TextField textField) {
+        try {
+            Double.parseDouble(textField.getText());
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private boolean isDateValid(TextField textField) {
+        String dateString = textField.getText();
+        try {
+            LocalDate.parse(dateString);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    private void insertMemberStats() {
+        connect = dbConnection.getConnection();
+
+        String exerciseName = exerciseTextField.getText();
+        double exerciseWeight = Double.parseDouble(exerciseWeightTextField.getText());
+        int repetitions = Integer.parseInt(repetitonsTextField.getText());
+        String dateString = dateTextField.getText();
+        double memberWeight = Double.parseDouble(memberWeightTextField.getText());
+
+        // The same validation checks from earlier.
+        if (isEmpty(exerciseTextField) ||
+                isEmpty(exerciseWeightTextField) ||
+                isEmpty(repetitonsTextField) ||
+                isEmpty(dateTextField) ||
+                isEmpty(memberWeightTextField)) {
+
+            showAlert(Alert.AlertType.ERROR, "Error Message!", "All fields must be filled out");
+            return;
+        }
+
+        if (!isInteger(repetitonsTextField)) {
+            showAlert(Alert.AlertType.ERROR, "Error Message!", "Repetitions must be a whole number!");
+            return;
+        }
+
+        if (!isDouble(exerciseWeightTextField) ||
+                !isDouble(dateTextField)) {
+            showAlert(Alert.AlertType.ERROR, "Error Message!", "Exercise Weight must be a valid number!");
+            return;
+        }
+
+        if (!isDateValid(dateTextField)) {
+            showAlert(Alert.AlertType.ERROR, "Error Message!", "Please use the correct format 'YYYY-MM-DD'");
+            return;
+        }
+
+        String insertToTable = "INSERT INTO member_info(exerciseName, exerciseWeight, repetitions, date, memberWeight) VALUES (?, ?, ?, ?, ?)";
+
+        try {
+            preparedStatement = connect.prepareStatement(insertToTable);
+
+            // Setting the parameters
+            preparedStatement.setString(1, exerciseName);
+            preparedStatement.setDouble(2, exerciseWeight);
+            preparedStatement.setInt(3, repetitions);
+            preparedStatement.setString(4, dateString);
+            preparedStatement.setDouble(5, memberWeight);
+
+            // executing the statement
+            preparedStatement.executeUpdate();
+
+            // Alert to confirm it's added.
+            showAlert(Alert.AlertType.INFORMATION, "Information Message!", "Details added successfully!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // finally is used to clean up after the try and catch and close down the db
+        // connection.
+        finally {
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace(); // Or other error handling.
+                }
+            }
+        }
     }
 
     @FXML
@@ -181,10 +318,10 @@ public class memberDashboardController {
 
     }
 
-
     @FXML
     void closeMouseEvent(ActionEvent event) {
-
+        Stage stage = (Stage) closeBtn.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -307,8 +444,22 @@ public class memberDashboardController {
 
     }
 
-    public void initialize() {
-        
+    public void setGreeting() {
+
+        // Updating the greeting label to match the Username of the user.
+        // Quality of life and what not.
+
+        String user = getData.username;
+
+        if (user != null && !user.trim().isEmpty()) {
+            greetingLabel.setText(user);
+        } else {
+            greetingLabel.setText("Member!");
+        }
+    }
+
+    public void initialize(URL location, ResourceBundle resources) {
+        setGreeting();
     }
 
 }
