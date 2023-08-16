@@ -46,7 +46,7 @@ public class loginController {
 
     @FXML
     void login(ActionEvent event) {
-        String sql = "SELECT * FROM admin_table WHERE adminUser = ? and adminPassword = ?";
+        String sql = "SELECT * FROM member_table WHERE username = ? and password = ?";
         connect = dbConnection.getConnection();
 
         try {
@@ -66,7 +66,7 @@ public class loginController {
             }
 
             else if (result.next()) {
-                getData.username = usernameField.getText();
+                memberDataFetcher.username = usernameField.getText();
 
                 alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Information Message");

@@ -16,6 +16,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -26,6 +28,21 @@ public class memberDashboardController {
 
     @FXML
     private Button addBtn;
+
+    @FXML
+    private TableView<?> sbdTableView;
+
+    @FXML
+    private TableColumn<?, ?> addBenchCol;
+
+    @FXML
+    private TableColumn<?, ?> addDeadliftCol;
+
+    @FXML
+    private TableColumn<?, ?> addSquatCol;
+
+    @FXML
+    private TableColumn<?, ?> addTotalCol;
 
     @FXML
     private ComboBox<String> armComboBox;
@@ -141,7 +158,7 @@ public class memberDashboardController {
     private Button spinClassGetInvolved;
 
     @FXML
-    private TextField exerciseTextField;
+    private TextField exerciseNameTextField;
 
     @FXML
     private Button sweatGetInvolvedBtn;
@@ -196,7 +213,7 @@ public class memberDashboardController {
 
     @FXML
     void addMouseEvent(ActionEvent event) {
-
+        insertMemberStats();
     }
 
     // Validation Checks
@@ -236,14 +253,18 @@ public class memberDashboardController {
     private void insertMemberStats() {
         connect = dbConnection.getConnection();
 
-        String exerciseName = exerciseTextField.getText();
-        double exerciseWeight = Double.parseDouble(exerciseWeightTextField.getText());
-        int repetitions = Integer.parseInt(repetitonsTextField.getText());
-        String dateString = dateTextField.getText();
-        double memberWeight = Double.parseDouble(memberWeightTextField.getText());
+        int memberNum = new memberDataFetcher().fetchMemberNumByUsername(memberDataFetcher.username);
+
+        memberData newMemberData = new memberData(
+            exerciseNameTextField.getText(),
+            Double.parseDouble(exerciseWeightTextField.getText()),
+            Integer.parseInt(repetitonsTextField.getText()),
+            dateTextField.getText(),
+            Double.parseDouble(memberWeightTextField.getText())
+        );
 
         // The same validation checks from earlier.
-        if (isEmpty(exerciseTextField) ||
+        if (isEmpty(exerciseNameTextField) ||
                 isEmpty(exerciseWeightTextField) ||
                 isEmpty(repetitonsTextField) ||
                 isEmpty(dateTextField) ||
@@ -259,7 +280,7 @@ public class memberDashboardController {
         }
 
         if (!isDouble(exerciseWeightTextField) ||
-                !isDouble(dateTextField)) {
+                !isDouble(memberWeightTextField)) {
             showAlert(Alert.AlertType.ERROR, "Error Message!", "Exercise Weight must be a valid number!");
             return;
         }
@@ -269,18 +290,19 @@ public class memberDashboardController {
             return;
         }
 
-        String insertToTable = "INSERT INTO member_info(exerciseName, exerciseWeight, repetitions, date, memberWeight) VALUES (?, ?, ?, ?, ?)";
+        String insertToTable = "INSERT INTO member_info(memberNum, exerciseName, exerciseWeight, repetitions, date, memberWeight) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
             preparedStatement = connect.prepareStatement(insertToTable);
 
-            // Setting the parameters
-            preparedStatement.setString(1, exerciseName);
-            preparedStatement.setDouble(2, exerciseWeight);
-            preparedStatement.setInt(3, repetitions);
-            preparedStatement.setString(4, dateString);
-            preparedStatement.setDouble(5, memberWeight);
-
+            // Setting the parameters using MemberData object
+            preparedStatement.setInt(1, memberNum);
+            preparedStatement.setString(2, newMemberData.getExerciseName());
+            preparedStatement.setDouble(3, newMemberData.getExerciseWeight());
+            preparedStatement.setInt(4, newMemberData.getRepetitions());
+            preparedStatement.setDate(5, newMemberData.getDate()); // Assuming the date format is correctly converted in MemberData
+            preparedStatement.setDouble(6, newMemberData.getMemberWeight());
+    
             // executing the statement
             preparedStatement.executeUpdate();
 
@@ -289,15 +311,14 @@ public class memberDashboardController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        // finally is used to clean up after the try and catch and close down the db
-        // connection.
         finally {
+            // finally is used to clean up after the try and catch and close down the db
+            // connection.
             if (preparedStatement != null) {
                 try {
                     preparedStatement.close();
                 } catch (SQLException e) {
-                    e.printStackTrace(); // Or other error handling.
+                    e.printStackTrace();
                 }
             }
         }
@@ -361,6 +382,7 @@ public class memberDashboardController {
     
     @FXML
     void swapForm(ActionEvent event) {
+        // Cycling through the forms on the member dashboard.
         if(event.getSource() == homeBtn) {
             homeForm.setVisible(true);
             statsForm.setVisible(false);
@@ -449,7 +471,7 @@ public class memberDashboardController {
         // Updating the greeting label to match the Username of the user.
         // Quality of life and what not.
 
-        String user = getData.username;
+        String user = memberDataFetcher.username;
 
         if (user != null && !user.trim().isEmpty()) {
             greetingLabel.setText(user);
