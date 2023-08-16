@@ -6,8 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,6 +28,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import models.dbConnection;
+import models.exerciseRecord;
 import models.memberData;
 import models.memberDataFetcher;
 
@@ -33,19 +38,62 @@ public class memberDashboardController {
     private Button addBtn;
 
     @FXML
-    private TableView<?> sbdTableView;
+    private TableView<exerciseRecord> sbdTableView;
 
     @FXML
-    private TableColumn<?, ?> addBenchCol;
+    private TableColumn<exerciseRecord, Double> addBenchCol;
 
     @FXML
-    private TableColumn<?, ?> addDeadliftCol;
+    private TableColumn<exerciseRecord, Double> addDeadliftCol;
 
     @FXML
-    private TableColumn<?, ?> addSquatCol;
+    private TableColumn<exerciseRecord, Double> addSquatCol;
 
     @FXML
     private TableColumn<?, ?> addTotalCol;
+
+
+    private void populateTableView() {
+        // link columns to model properties
+        addSquatCol.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getExerciseWeight()).asObject());
+        addBenchCol.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getExerciseWeight()).asObject());
+        addDeadliftCol.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getExerciseWeight()).asObject());        
+    
+        // fetch data and set to table
+        ObservableList<exerciseRecord> data = FXCollections.observableArrayList();
+        data.addAll(fetchExerciseData("Squat"));
+        data.addAll(fetchExerciseData("Bench"));
+        data.addAll(fetchExerciseData("Deadlift"));
+        sbdTableView.setItems(data);
+    }
+
+    public List<exerciseRecord> fetchExerciseData(String exerciseType) {
+        List<exerciseRecord> exerciseRecords = new ArrayList<>();
+        connect = dbConnection.getConnection();
+
+        String query = "SELECT * FROM member_info WHERE LOWER(exerciseName) = ?";
+        try (PreparedStatement preparedStatement = connect.prepareStatement(query)) {
+            preparedStatement.setString(1, exerciseType.toLowerCase());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                // Assuming ExerciseRecord has a constructor that takes these parameters
+                exerciseRecord record = new exerciseRecord(
+                    resultSet.getInt("id"),
+                    resultSet.getString("exerciseName"),
+                    resultSet.getDouble("exerciseWeight")
+                    //... add other columns as needed
+                );
+                exerciseRecords.add(record);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return exerciseRecords;
+    }
+
+
 
     @FXML
     private ComboBox<String> armComboBox;
@@ -466,7 +514,7 @@ public class memberDashboardController {
 
     @FXML
     void updateMouseEvent(ActionEvent event) {
-
+        populateTableView();
     }
 
     public void setGreeting() {
