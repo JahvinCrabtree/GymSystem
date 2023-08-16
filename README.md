@@ -38,3 +38,9 @@ Also implemented some quality of life alerts if the passwords dont match when re
 
 Implemented some new features to the register page, learned about implementing delays to the alerts and creating automatic redirects. So when the user registers to the application, it shows an alert that tells them it was successful and then redirects the user back to the login page to then sign in.
 
+## Dashboard Page
+
+started working on the dashboard - cleaning up folder structure and learning a bit more about dependancy injection or in this case FXML injection where I'm inserting the data to populate my tableView columns. Which I've got working but it's not the way I want it to work currently, so I'll be looking at that problem and solving it as and when I figure it out.
+
+Overall happy with progress so far and interested to see how I can progress the first few pages of this dashboard before getting into the fun stuff with the maps and web views etc.
+
