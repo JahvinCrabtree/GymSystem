@@ -59,12 +59,38 @@ public class memberDashboardController {
         addBenchCol.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getExerciseWeight()).asObject());
         addDeadliftCol.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getExerciseWeight()).asObject());        
     
-        // fetch data and set to table
-        ObservableList<exerciseRecord> data = FXCollections.observableArrayList();
-        data.addAll(fetchExerciseData("Squat"));
-        data.addAll(fetchExerciseData("Bench"));
-        data.addAll(fetchExerciseData("Deadlift"));
-        sbdTableView.setItems(data);
+        // Fetch data and set to table
+        ObservableList<exerciseRecord> squatData = FXCollections.observableArrayList(fetchExerciseData("Squat"));
+        ObservableList<exerciseRecord> benchData = FXCollections.observableArrayList(fetchExerciseData("Bench"));
+        ObservableList<exerciseRecord> deadliftData = FXCollections.observableArrayList(fetchExerciseData("Deadlift"));
+
+        addSquatCol.setCellValueFactory(cellData -> {
+            if ("Squat".equalsIgnoreCase(cellData.getValue().getExerciseName())) {
+                return new SimpleDoubleProperty(cellData.getValue().getExerciseWeight()).asObject();
+            }
+            return null;
+        });
+
+        addBenchCol.setCellValueFactory(cellData -> {
+            if ("Bench".equalsIgnoreCase(cellData.getValue().getExerciseName())) {
+                return new SimpleDoubleProperty(cellData.getValue().getExerciseWeight()).asObject();
+            }
+            return null;
+        });
+
+        addDeadliftCol.setCellValueFactory(cellData -> {
+            if ("Deadlift".equalsIgnoreCase(cellData.getValue().getExerciseName())) {
+                return new SimpleDoubleProperty(cellData.getValue().getExerciseWeight()).asObject();
+            }
+            return null;
+        });
+
+    ObservableList<exerciseRecord> combinedData = FXCollections.observableArrayList();
+    combinedData.addAll(squatData);
+    combinedData.addAll(benchData);
+    combinedData.addAll(deadliftData);
+
+    sbdTableView.setItems(combinedData);
     }
 
     public List<exerciseRecord> fetchExerciseData(String exerciseType) {
