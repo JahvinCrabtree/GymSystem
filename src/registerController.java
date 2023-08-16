@@ -23,6 +23,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
+import models.dbConnection;
 
 
 public class registerController {

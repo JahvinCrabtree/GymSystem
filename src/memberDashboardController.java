@@ -23,6 +23,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import models.dbConnection;
+import models.memberData;
+import models.memberDataFetcher;
 
 public class memberDashboardController {
 
