@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -16,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -31,8 +33,11 @@ import models.dbConnection;
 import models.exerciseRecord;
 import models.memberData;
 import models.memberDataFetcher;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
-public class memberDashboardController {
+public class memberDashboardController implements Initializable {
 
     @FXML
     private Button addBtn;
@@ -218,6 +223,39 @@ public class memberDashboardController {
 
     @FXML
     private TextField quoteText;
+
+    private List<String> quotes; 
+    private int currentQuoteIndex = 1;
+
+    private void cycleQuotes() {
+        quotes =  Arrays.asList(
+            "I hated every minute of training, but I said, don't quit. Suffer now and live the rest of your life as a champion. - Muhammad Ali",
+            "We are what we repeatedly do. Excellence then is not an act but a habit. - Aristotele",
+            "Don't stop when you're tired. Stop when you're done. - David Goggins",
+            "Who's gonna carry the boats? - David Goggins",
+            "To keep winning, I have to keep improving."
+        );
+
+        Timeline timeline = new Timeline(new KeyFrame(
+            Duration.seconds(15),
+            ae -> updateQuote()
+        ));
+
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+        System.out.println("Setting up quote cycling...");
+    }
+
+    private void updateQuote() {
+        if (quotes == null || quotes.isEmpty()) return;
+
+        quoteText.setText(quotes.get(currentQuoteIndex));
+        currentQuoteIndex = (currentQuoteIndex + 1) % quotes.size();
+
+        System.out.println("Updating quote to: " + quotes.get(currentQuoteIndex));
+    }
+
+    
 
     @FXML
     private Button refreshBtn;
@@ -559,6 +597,7 @@ public class memberDashboardController {
 
     public void initialize(URL location, ResourceBundle resources) {
         setGreeting();
+        cycleQuotes();
     }
 
 }

@@ -98,10 +98,10 @@
                      <children>
                         <TableView fx:id="sbdTableView" layoutX="14.0" layoutY="14.0" prefHeight="255.0" prefWidth="996.0" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;">
                            <columns>
-                              <TableColumn fx:id="addSquatCol" prefWidth="75.0" style="-fx-background-color: #FD7F20;" text="Squat" />
-                              <TableColumn fx:id="addBenchCol" prefWidth="75.0" style="-fx-background-color: #FD7F20;" text="Bench" />
-                              <TableColumn fx:id="addDeadliftCol" prefWidth="75.0" style="-fx-background-color: #FD7F20;" text="Deadlift" />
-                              <TableColumn fx:id="addTotalCol" prefWidth="75.0" style="-fx-background-color: #FD7F20;" text="Total" />
+                              <TableColumn fx:id="addSquatCol" prefWidth="75.0" style="-fx-background-color: FFEECC;" text="Squat" />
+                              <TableColumn fx:id="addBenchCol" prefWidth="75.0" style="-fx-background-color: FFEECC;" text="Bench" />
+                              <TableColumn fx:id="addDeadliftCol" prefWidth="75.0" style="-fx-background-color: FFEECC;" text="Deadlift" />
+                              <TableColumn fx:id="addTotalCol" prefWidth="75.0" style="-fx-background-color: FFEECC;" text="Total" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -146,7 +146,10 @@
                               <Image url="@../../resources/imgbin_2016-mr-olympia-2017-mr-olympia-arnold-sports-festival-dietary-supplement-bodybuilding-png.png" />
                            </image>
                         </ImageView>
-                        <TextField fx:id="quoteText" layoutX="127.0" layoutY="525.0" prefHeight="93.0" prefWidth="589.0" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;" />
+                        <TextField fx:id="quoteText" alignment="CENTER" layoutX="127.0" layoutY="525.0" prefHeight="93.0" prefWidth="589.0" promptText="Quotes" style="-fx-background-color: FFEECC; -fx-border-color: B7B7B7;">
+                           <font>
+                              <Font name="Gloucester MT Extra Condensed" size="22.0" />
+                           </font></TextField>
                         <Label layoutX="359.0" layoutY="492.0" prefHeight="24.0" prefWidth="102.0" text="Inspiration.">
                            <font>
                               <Font name="Gill Sans MT" size="20.0" />

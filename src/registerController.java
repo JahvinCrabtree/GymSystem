@@ -49,7 +49,7 @@ public class registerController {
     @FXML
     private ComboBox<String> membershipComboBox;
 
-    public void initialize() {
+    public void populateMemberTypes() {
         // Populating the ComboBox with items
         ObservableList<String> options = 
             FXCollections.observableArrayList("Gold", "Silver", "Bronze");
