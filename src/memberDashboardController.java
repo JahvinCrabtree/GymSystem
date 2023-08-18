@@ -169,6 +169,54 @@ public class memberDashboardController implements Initializable {
         shoulderComboBox.setItems(shoulderOptions);
     }
 
+    public void ComboBoxListeners() {
+        armComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                backComboBox.getSelectionModel().clearSelection();
+                chestComboBox.getSelectionModel().clearSelection();
+                legComboBox.getSelectionModel().clearSelection();
+                shoulderComboBox.getSelectionModel().clearSelection();
+            }
+        });
+    
+        backComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                armComboBox.getSelectionModel().clearSelection();
+                chestComboBox.getSelectionModel().clearSelection();
+                legComboBox.getSelectionModel().clearSelection();
+                shoulderComboBox.getSelectionModel().clearSelection();
+            }
+        });
+
+        chestComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                armComboBox.getSelectionModel().clearSelection();
+                backComboBox.getSelectionModel().clearSelection();
+                legComboBox.getSelectionModel().clearSelection();
+                shoulderComboBox.getSelectionModel().clearSelection();
+            }
+        });
+
+        shoulderComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                armComboBox.getSelectionModel().clearSelection();
+                chestComboBox.getSelectionModel().clearSelection();
+                legComboBox.getSelectionModel().clearSelection();
+                backComboBox.getSelectionModel().clearSelection();
+            }
+        });
+
+        legComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                armComboBox.getSelectionModel().clearSelection();
+                chestComboBox.getSelectionModel().clearSelection();
+                backComboBox.getSelectionModel().clearSelection();
+                shoulderComboBox.getSelectionModel().clearSelection();
+            }
+        });
+
+    }
+
     @FXML
     private TextField exerciseWeightTextField;
 
@@ -614,6 +662,7 @@ public class memberDashboardController implements Initializable {
         setGreeting();
         cycleQuotes();
         comboBoxData();
+        ComboBoxListeners();
     }
 
 }
