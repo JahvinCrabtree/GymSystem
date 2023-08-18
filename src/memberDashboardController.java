@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.swing.Action;
+
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -151,20 +153,20 @@ public class memberDashboardController implements Initializable {
 
         ObservableList<String> backOptions = 
             FXCollections.observableArrayList("Bent-over Barbell Row", "Pull Ups", "Seated Cable Row", "Seal Row", "Lat Pulldown");
-        armComboBox.setItems(backOptions);
+        backComboBox.setItems(backOptions);
 
         ObservableList<String> chestOptions = 
             FXCollections.observableArrayList("Barbell Bench Press", "Dumbbell Bench Press", "Cable Flies", "Push Ups", "Incline Bench Press",
             "Decline Bench Press", "Dips", "Dumbbell Pullover");
-        armComboBox.setItems(chestOptions);
+        chestComboBox.setItems(chestOptions);
 
         ObservableList<String> legOptions = 
             FXCollections.observableArrayList("Barbell Squat", "Hack Squat", "Leg Extension", "Hmastring Curl", "Sissy Squat", "Leg Press", "Lunges");
-        armComboBox.setItems(legOptions);
+        legComboBox.setItems(legOptions);
 
         ObservableList<String> shoulderOptions = 
             FXCollections.observableArrayList("Military Press", "Dumbbell Shoulder Press", "Lateral Raises", "Reverse Flies", "Rope Face Pulls", "Front Raises");
-        armComboBox.setItems(shoulderOptions);
+        shoulderComboBox.setItems(shoulderOptions);
     }
 
     @FXML
@@ -224,12 +226,16 @@ public class memberDashboardController implements Initializable {
     @FXML
     private TextField quoteText;
 
+    @FXML
+    private Button tutorialButton;
+
+
     private List<String> quotes; 
     private int currentQuoteIndex = 1;
 
     private void cycleQuotes() {
         quotes =  Arrays.asList(
-            "I hated every minute of training, but I said, don't quit. Suffer now and live the rest of your life as a champion. - Muhammad Ali",
+            " Suffer now and live the rest of your life as a champion. - Muhammad Ali",
             "We are what we repeatedly do. Excellence then is not an act but a habit. - Aristotele",
             "Don't stop when you're tired. Stop when you're done. - David Goggins",
             "Who's gonna carry the boats? - David Goggins",
@@ -237,7 +243,7 @@ public class memberDashboardController implements Initializable {
         );
 
         Timeline timeline = new Timeline(new KeyFrame(
-            Duration.seconds(15),
+            Duration.seconds(5),
             ae -> updateQuote()
         ));
 
@@ -368,16 +374,6 @@ public class memberDashboardController implements Initializable {
     private void insertMemberStats() {
         connect = dbConnection.getConnection();
 
-        int memberNum = new memberDataFetcher().fetchMemberNumByUsername(memberDataFetcher.username);
-
-        memberData newMemberData = new memberData(
-            exerciseNameTextField.getText(),
-            Double.parseDouble(exerciseWeightTextField.getText()),
-            Integer.parseInt(repetitonsTextField.getText()),
-            dateTextField.getText(),
-            Double.parseDouble(memberWeightTextField.getText())
-        );
-
         // The same validation checks from earlier.
         if (isEmpty(exerciseNameTextField) ||
                 isEmpty(exerciseWeightTextField) ||
@@ -404,6 +400,16 @@ public class memberDashboardController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Error Message!", "Please use the correct format 'YYYY-MM-DD'");
             return;
         }
+
+        int memberNum = new memberDataFetcher().fetchMemberNumByUsername(memberDataFetcher.username);
+
+        memberData newMemberData = new memberData(
+            exerciseNameTextField.getText(),
+            Double.parseDouble(exerciseWeightTextField.getText()),
+            Integer.parseInt(repetitonsTextField.getText()),
+            dateTextField.getText(),
+            Double.parseDouble(memberWeightTextField.getText())
+        );
 
         String insertToTable = "INSERT INTO member_info(memberNum, exerciseName, exerciseWeight, repetitions, date, memberWeight) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -577,6 +583,15 @@ public class memberDashboardController implements Initializable {
     }
 
     @FXML
+    void tutorialButtonActionEvent(ActionEvent event) {
+
+    }
+
+    public void tutorialVideo() {
+
+    }
+
+    @FXML
     void updateMouseEvent(ActionEvent event) {
         populateTableView();
     }
@@ -598,6 +613,7 @@ public class memberDashboardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setGreeting();
         cycleQuotes();
+        comboBoxData();
     }
 
 }
