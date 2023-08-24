@@ -635,6 +635,19 @@ public class memberDashboardController implements Initializable {
 
     }
 
+    // void getVideoUrl() {
+    //     connect = dbConnection.getConnection();
+    //     preparedStatement = connect.prepareStatement("SELECT url FROM videos WHERE exercise_name = ?");
+    //     preparedStatement.setString(1, exercise);
+    // }
+
+    // private String getUrlForExercise(String exercise) {
+    //     String url = null;
+    //     Connection connect = null;
+    //     PreparedStatement preparedStatement = null;
+    //     ResultSet resultSet = null;
+    // }
+
     public void tutorialVideo() {
 
     }
