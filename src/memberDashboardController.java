@@ -176,6 +176,7 @@ public class memberDashboardController implements Initializable {
                 chestComboBox.getSelectionModel().clearSelection();
                 legComboBox.getSelectionModel().clearSelection();
                 shoulderComboBox.getSelectionModel().clearSelection();
+                handleExerciseSelection(newValue);
             }
         });
     
@@ -185,6 +186,7 @@ public class memberDashboardController implements Initializable {
                 chestComboBox.getSelectionModel().clearSelection();
                 legComboBox.getSelectionModel().clearSelection();
                 shoulderComboBox.getSelectionModel().clearSelection();
+                handleExerciseSelection(newValue);
             }
         });
 
@@ -194,6 +196,7 @@ public class memberDashboardController implements Initializable {
                 backComboBox.getSelectionModel().clearSelection();
                 legComboBox.getSelectionModel().clearSelection();
                 shoulderComboBox.getSelectionModel().clearSelection();
+                
             }
         });
 
@@ -203,6 +206,7 @@ public class memberDashboardController implements Initializable {
                 chestComboBox.getSelectionModel().clearSelection();
                 legComboBox.getSelectionModel().clearSelection();
                 backComboBox.getSelectionModel().clearSelection();
+
             }
         });
 
@@ -212,9 +216,21 @@ public class memberDashboardController implements Initializable {
                 chestComboBox.getSelectionModel().clearSelection();
                 backComboBox.getSelectionModel().clearSelection();
                 shoulderComboBox.getSelectionModel().clearSelection();
+                handleExerciseSelection(newValue);
             }
         });
+    }
 
+    private void handleExerciseSelection(String exerciseName) {
+        if (exerciseName != null && !exerciseName.trim().isEmpty()) {
+            String videoUrl = getUrlForExercise(exerciseName);
+            if (videoUrl != null) {
+                exerciseVideo.getEngine().load(videoUrl);
+                System.out.println("Loading Video...");
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error Message!", "No Video URL.");
+            }
+        }
     }
 
     @FXML
@@ -635,19 +651,31 @@ public class memberDashboardController implements Initializable {
 
     }
 
-    // void getVideoUrl() {
-    //     connect = dbConnection.getConnection();
-    //     preparedStatement = connect.prepareStatement("SELECT url FROM videos WHERE exercise_name = ?");
-    //     preparedStatement.setString(1, exercise);
-    // }
-
-    // private String getUrlForExercise(String exercise) {
-    //     String url = null;
-    //     Connection connect = null;
-    //     PreparedStatement preparedStatement = null;
-    //     ResultSet resultSet = null;
-    // }
-
+    private String getUrlForExercise(String exercise) {
+        String url = null;
+        try {
+            connect = dbConnection.getConnection();
+            String query = "SELECT url FROM videos WHERE exercise_name = ?";
+            preparedStatement = connect.prepareStatement(query);
+            preparedStatement.setString(1, exercise);
+            ResultSet resultSet = preparedStatement.executeQuery();
+    
+            if (resultSet.next()) {
+                url = resultSet.getString("url");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close resources
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+                if (connect != null) connect.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return url;
+    }
     public void tutorialVideo() {
 
     }
