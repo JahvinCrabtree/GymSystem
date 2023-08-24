@@ -12,17 +12,12 @@ The workspace contains two folders by default, where:
 
 Meanwhile, the compiled output files will be generated in the `bin` folder by default.
 
-## Day 1 
-
 ## - Started fleshing out the general setup of the dashboards, got a the first iteration of the login and signup page. 
 
 
 <img width="460" alt="loginPage" src="https://github.com/JahvinCrabtree/GymSystem/assets/108539156/5d5c24f2-2127-4629-9eee-81d7886e5ed9">
 
 <img width="461" alt="signupPage" src="https://github.com/JahvinCrabtree/GymSystem/assets/108539156/e667304d-8ab4-4a49-abfb-c1696355caf9">
-
-
-## Day 3
 
 ## Login page functional, database connection functional, dashboard 50% fleshed out register page tonight.
 
@@ -44,3 +39,4 @@ started working on the dashboard - cleaning up folder structure and learning a b
 
 Overall happy with progress so far and interested to see how I can progress the first few pages of this dashboard before getting into the fun stuff with the maps and web views etc.
 
+Populating database so that videos can be displayed from it tot he applicaiton as tutorials. 
