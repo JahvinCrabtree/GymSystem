@@ -40,3 +40,4 @@ started working on the dashboard - cleaning up folder structure and learning a b
 Overall happy with progress so far and interested to see how I can progress the first few pages of this dashboard before getting into the fun stuff with the maps and web views etc.
 
 Populating database so that videos can be displayed from it tot he applicaiton as tutorials. 
+Update - Populated teh database, but then found out that you can't directly link videos withj a url you have to covert it to the embed format. So that's the fix for that I hope.
