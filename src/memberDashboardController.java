@@ -699,11 +699,17 @@ public class memberDashboardController implements Initializable {
         }
     }
 
+    public void videoTest() {
+        String iframeContent = "<iframe width=\"525\" height=\"338\" src=\"https://www.youtube.com/embed/DfiqoRwGN1M\" title=\"Cross Em Aht\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
+        exerciseVideo.getEngine().loadContent(iframeContent);
+    }
+
     public void initialize(URL location, ResourceBundle resources) {
         setGreeting();
         cycleQuotes();
         comboBoxData();
         ComboBoxListeners();
+        videoTest();
     }
 
 }
