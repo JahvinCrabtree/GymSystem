@@ -196,7 +196,7 @@ public class memberDashboardController implements Initializable {
                 backComboBox.getSelectionModel().clearSelection();
                 legComboBox.getSelectionModel().clearSelection();
                 shoulderComboBox.getSelectionModel().clearSelection();
-                
+                handleExerciseSelection(newValue);
             }
         });
 
@@ -206,7 +206,7 @@ public class memberDashboardController implements Initializable {
                 chestComboBox.getSelectionModel().clearSelection();
                 legComboBox.getSelectionModel().clearSelection();
                 backComboBox.getSelectionModel().clearSelection();
-
+                handleExerciseSelection(newValue);
             }
         });
 
@@ -221,15 +221,24 @@ public class memberDashboardController implements Initializable {
         });
     }
 
+    // Because I was too lazy to change my DB I just hard coded a replacement string for videos. 
+    // Probably took longer than just getting the embed link but it's done now - this was probably more fun too. 
     private void handleExerciseSelection(String exerciseName) {
-        if (exerciseName != null && !exerciseName.trim().isEmpty()) {
-            String videoUrl = getUrlForExercise(exerciseName);
-            if (videoUrl != null) {
-                exerciseVideo.getEngine().load(videoUrl);
-                System.out.println("Loading Video...");
-            } else {
-                showAlert(Alert.AlertType.ERROR, "Error Message!", "No Video URL.");
-            }
+        String videoUrl = getUrlForExercise(exerciseName);
+        
+        if (videoUrl != null && videoUrl.contains("youtube.com/watch?v=")) {
+            String embedUrl = videoUrl.replace("youtube.com/watch?v=", "youtube.com/embed/");
+            String html = "<iframe width=\"535\" height=\"338\" src=\"" + embedUrl + "\" frameborder=\"0\" allowfullscreen></iframe>";
+            exerciseVideo.getEngine().loadContent(html);
+            System.out.println("TESTING TESTING TESTING");
+            String urlFromDb = getUrlForExercise(exerciseName);
+            System.out.println("Fetched URL: " + urlFromDb);
+        } else if (videoUrl.contains("https://www.youtube.com/shorts/")) {
+            String embedUrl = videoUrl.replace("https://www.youtube.com/shorts/", "youtube.com/embed/");
+            String html = "<iframe width=\"535\" height=\"338\" src=\"" + embedUrl + "\" frameborder=\"3\" allowfullscreen></iframe>";
+            exerciseVideo.getEngine().loadContent(html);
+        }else {
+            showAlert(Alert.AlertType.ERROR, "Error Message!", "No Video URL.");
         }
     }
 
@@ -655,13 +664,13 @@ public class memberDashboardController implements Initializable {
         String url = null;
         try {
             connect = dbConnection.getConnection();
-            String query = "SELECT url FROM videos WHERE exercise_name = ?";
+            String query = "SELECT exerciseUrl FROM exercise_videos WHERE exerciseName = ?";
             preparedStatement = connect.prepareStatement(query);
             preparedStatement.setString(1, exercise);
             ResultSet resultSet = preparedStatement.executeQuery();
     
             if (resultSet.next()) {
-                url = resultSet.getString("url");
+                url = resultSet.getString("exerciseUrl");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -675,9 +684,6 @@ public class memberDashboardController implements Initializable {
             }
         }
         return url;
-    }
-    public void tutorialVideo() {
-
     }
 
     @FXML
@@ -699,17 +705,11 @@ public class memberDashboardController implements Initializable {
         }
     }
 
-    public void videoTest() {
-        String iframeContent = "<iframe width=\"525\" height=\"338\" src=\"https://www.youtube.com/embed/DfiqoRwGN1M\" title=\"Cross Em Aht\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
-        exerciseVideo.getEngine().loadContent(iframeContent);
-    }
-
     public void initialize(URL location, ResourceBundle resources) {
         setGreeting();
         cycleQuotes();
         comboBoxData();
         ComboBoxListeners();
-        videoTest();
     }
 
 }
