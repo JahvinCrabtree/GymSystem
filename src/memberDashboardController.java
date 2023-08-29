@@ -223,6 +223,8 @@ public class memberDashboardController implements Initializable {
 
     // Because I was too lazy to change my DB I just hard coded a replacement string for videos. 
     // Probably took longer than just getting the embed link but it's done now - this was probably more fun too. 
+
+    // This still isn't working - might just change all my videos to the embed format in DB I think it might be because I'm using YoutubeShorts.
     private void handleExerciseSelection(String exerciseName) {
         String videoUrl = getUrlForExercise(exerciseName);
         
