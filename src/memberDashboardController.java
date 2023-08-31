@@ -225,24 +225,31 @@ public class memberDashboardController implements Initializable {
     // Probably took longer than just getting the embed link but it's done now - this was probably more fun too. 
 
     // This still isn't working - might just change all my videos to the embed format in DB I think it might be because I'm using YoutubeShorts.
-    private void handleExerciseSelection(String exerciseName) {
-        String videoUrl = getUrlForExercise(exerciseName);
+private void handleExerciseSelection(String exerciseName) {
+    String videoUrl = getUrlForExercise(exerciseName);
+
+    if (videoUrl != null) {
+        String embedUrl = "";
         
-        if (videoUrl != null && videoUrl.contains("youtube.com/watch?v=")) {
-            String embedUrl = videoUrl.replace("youtube.com/watch?v=", "youtube.com/embed/");
+        if (videoUrl.contains("youtube.com/watch?v=")) {
+            embedUrl = videoUrl.replace("youtube.com/watch?v=", "youtube.com/embed/");
+        } else if (videoUrl.contains("https://www.youtube.com/shorts/")) {
+            embedUrl = videoUrl.replace("https://www.youtube.com/shorts/", "https://youtube.com/embed/");
+        }
+
+        if (!embedUrl.isEmpty()) {
             String html = "<iframe width=\"535\" height=\"338\" src=\"" + embedUrl + "\" frameborder=\"0\" allowfullscreen></iframe>";
             exerciseVideo.getEngine().loadContent(html);
             System.out.println("TESTING TESTING TESTING");
             String urlFromDb = getUrlForExercise(exerciseName);
             System.out.println("Fetched URL: " + urlFromDb);
-        } else if (videoUrl.contains("https://www.youtube.com/shorts/")) {
-            String embedUrl = videoUrl.replace("https://www.youtube.com/shorts/", "youtube.com/embed/");
-            String html = "<iframe width=\"535\" height=\"338\" src=\"" + embedUrl + "\" frameborder=\"3\" allowfullscreen></iframe>";
-            exerciseVideo.getEngine().loadContent(html);
-        }else {
-            showAlert(Alert.AlertType.ERROR, "Error Message!", "No Video URL.");
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Error Message!", "No Video URL or Unsupported Format.");
         }
     }
+}
+
+    
 
     @FXML
     private TextField exerciseWeightTextField;
