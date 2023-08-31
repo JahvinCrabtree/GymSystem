@@ -43,3 +43,5 @@ Populating database so that videos can be displayed from it tot he applicaiton a
 Update - Populated the database, but then found out that you can't directly link videos withj a url you have to covert it to the embed format. So that's the fix for that I hope.
 
 Also creating a google maps api to implement into the application - will set up the DB for that at a later date. 
+
+Training page is working but not fully working - I'm havin trouble implenting youtube shorts and I think it might be top do with the visualf ormat of them.
