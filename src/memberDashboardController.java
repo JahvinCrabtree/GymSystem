@@ -221,10 +221,9 @@ public class memberDashboardController implements Initializable {
         });
     }
 
-    // Because I was too lazy to change my DB I just hard coded a replacement string for videos. 
-    // Probably took longer than just getting the embed link but it's done now - this was probably more fun too. 
 
-    // This still isn't working - might just change all my videos to the embed format in DB I think it might be because I'm using YoutubeShorts.
+    // Remember to implement the domains HTTPS and HTTP. 
+
 private void handleExerciseSelection(String exerciseName) {
     String videoUrl = getUrlForExercise(exerciseName);
 
@@ -240,7 +239,7 @@ private void handleExerciseSelection(String exerciseName) {
         if (!embedUrl.isEmpty()) {
             String html = "<iframe width=\"535\" height=\"338\" src=\"" + embedUrl + "\" frameborder=\"0\" allowfullscreen></iframe>";
             exerciseVideo.getEngine().loadContent(html);
-            System.out.println("TESTING TESTING TESTING");
+            System.out.println("TESTING TESTING TESTING");  // Testing purposes remove later 
             String urlFromDb = getUrlForExercise(exerciseName);
             System.out.println("Fetched URL: " + urlFromDb);
         } else {
@@ -315,6 +314,8 @@ private void handleExerciseSelection(String exerciseName) {
     private List<String> quotes; 
     private int currentQuoteIndex = 1;
 
+    // Quotes played on the members dashboard for motivation etc, just a nice touch to add some personality to the app.
+
     private void cycleQuotes() {
         quotes =  Arrays.asList(
             " Suffer now and live the rest of your life as a champion. - Muhammad Ali",
@@ -331,7 +332,7 @@ private void handleExerciseSelection(String exerciseName) {
 
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-        System.out.println("Setting up quote cycling...");
+        System.out.println("Setting up quote cycling..."); // Testing purposes.
     }
 
     private void updateQuote() {
@@ -340,7 +341,7 @@ private void handleExerciseSelection(String exerciseName) {
         quoteText.setText(quotes.get(currentQuoteIndex));
         currentQuoteIndex = (currentQuoteIndex + 1) % quotes.size();
 
-        System.out.println("Updating quote to: " + quotes.get(currentQuoteIndex));
+        System.out.println("Updating quote to: " + quotes.get(currentQuoteIndex)); // Remove at later date - testing purposes. 
     }
 
     
