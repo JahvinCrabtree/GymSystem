@@ -264,7 +264,7 @@
                         <Button fx:id="updateGymNumberBtn" layoutX="811.0" layoutY="305.0" mnemonicParsing="false" onAction="#updateGymNumber" prefHeight="25.0" prefWidth="91.0" style="-fx-background-color: FFDDCC; -fx-border-color: FFEECC;" text="Update!" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="trainForm" prefHeight="633.0" prefWidth="1023.0">
+                  <AnchorPane fx:id="trainForm" prefHeight="633.0" prefWidth="1023.0" visible="false">
                      <children>
                         <Label layoutX="449.0" layoutY="30.0" text="Training Hub!">
                            <font>
@@ -316,9 +316,9 @@
                         </Button>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="mapForm" prefHeight="633.0" prefWidth="1023.0" style="-fx-background-image: GymSystem\resourcestestBGImage.jpg;" visible="false">
+                  <AnchorPane fx:id="mapForm" prefHeight="633.0" prefWidth="1023.0" style="-fx-background-image: GymSystem\resourcestestBGImage.jpg;">
                      <children>
-                        <WebView layoutX="55.0" layoutY="176.0" prefHeight="402.0" prefWidth="905.0" />
+                        <WebView fx:id="mapView" layoutX="55.0" layoutY="176.0" prefHeight="402.0" prefWidth="905.0" />
                         <Label layoutX="410.0" layoutY="53.0" text="Gyms in the local area!">
                            <font>
                               <Font name="Gloucester MT Extra Condensed" size="32.0" />

@@ -11,6 +11,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import javax.swing.Action;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -38,6 +43,7 @@ import models.memberDataFetcher;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
+import javafx.scene.web.WebEngine;
 
 public class memberDashboardController implements Initializable {
 
@@ -273,6 +279,16 @@ private void handleExerciseSelection(String exerciseName) {
 
     @FXML
     private WebView exerciseVideo;
+
+    @FXML
+    private WebView mapView;
+
+    // 
+    private String readHTMLFile(String filePath) throws IOException {
+        Path path = Paths.get(filePath);
+        byte[] bytes = Files.readAllBytes(path);
+        return new String(bytes);
+    }
 
     @FXML
     private Button fitnessGetInvolvedBtn;
@@ -720,6 +736,15 @@ private void handleExerciseSelection(String exerciseName) {
         cycleQuotes();
         comboBoxData();
         ComboBoxListeners();
+
+        WebEngine webEngine = mapView.getEngine();
+        
+        try {
+            String htmlContent = readHTMLFile("src/mapping.html");
+            webEngine.loadContent(htmlContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
