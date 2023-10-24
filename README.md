@@ -47,3 +47,5 @@ Also creating a google maps api to implement into the application - will set up 
 Training page is working but not fully working - I'm havin trouble implenting youtube shorts and I think it might be top do with the visual format of them.
 
 Fixed the videos finally - there was 2 issues 1, the links technically weren't complete and the URL scheme had to be changed and well the 2nd thing which is still the first thing was implementing the HTTP or HTTPS protocol to complete the link this was why my short videos weren't loading because they were missing the domain. Silly mistake honestly, was easily overlooked. 
+
+Designing the information pages - then  implementation, then it should be the admin pages or Maps pages. 
