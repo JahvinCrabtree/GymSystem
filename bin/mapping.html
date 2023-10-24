@@ -7,8 +7,20 @@
 <body>
    <div id="map" style="height: 400px;"></div>
    <script>
-       var map = L.map('map').setView([51.505, -0.09], 13);
+       var map = L.map('map').setView([50.392631, -3.519334], 13);
        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+       L.marker([50.392631, -3.519334], {
+        title: "Sparta Gym",
+       })
+
+       .bindPopup(`
+        <span class="popup">
+            <b> Sparta Gym</b>
+            <br>123<br>
+            London<br>
+        </span>
+        `)
    </script>
 </body>
 </html>
